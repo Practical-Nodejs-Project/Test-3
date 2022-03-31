@@ -2,9 +2,6 @@ const chalk = require("chalk");
 const clear = require("clear");
 const figlet = require("figlet");
 const files = require("./lib/files");
-
-const inquirer = require("./lib/inquirer");
-
 const github = require("./lib/github");
 const repo = require("./lib/repo");
 
@@ -26,10 +23,8 @@ const run = async () => {
     }
     github.setGithubAuth(token);
     const remoteUrl = await repo.createRemoteRepo();
-    console.log(remoteUrl);
     await repo.createGitignore();
-    const result = await repo.setupRepo(remoteUrl);
-    console.log(chalk.green(result));
+    await repo.setupRepo(remoteUrl);
   } catch (err) {
     if (err) {
       switch (err.code) {
